@@ -20,7 +20,7 @@
           lazy-rules
           :rules="[ val => val && val.length > 0 || 'Please type something']"
         />
-          <q-btn label="Add task" type="submit" color="primary"/>
+          <q-btn label="Add task" type="submit" color="dark"/>
 
       </q-form>
     </div>
@@ -70,3 +70,8 @@ export default defineComponent({
   }
 })
 </script>
+<style lang="scss">
+  body {
+    color: $dark;
+  }
+</style>

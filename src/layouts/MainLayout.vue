@@ -10,37 +10,84 @@
           aria-label="Menu"
           @click="toggleLeftDrawer"
         />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
+      <div class="q-px-lg q-pt-xl q-mb-md">
+        <div class="text-h3">My Todo List</div>
+        <div class="text-subtitle">{{ todaysDate }}</div>
+      </div>
+      <q-img 
+      class="header-image absolute-top"
+      src="../assets/background.jpg"/>
     </q-header>
-
     <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+        v-model="leftDrawerOpen"
+        show-if-above
+        :width="250"
+        :breakpoint="600"
+      >
+        <q-scroll-area style="height: calc(100% - 185px); margin-top: 185px; border-right: 1px solid #ddd">
 
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
+          <q-list padding>
+            <q-item to="/" exact clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon name="list_alt" />
+              </q-item-section>
+
+              <q-item-section>
+                Todo List
+              </q-item-section>
+            </q-item>
+
+            <q-item to="/help" exact clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon name="help" />
+              </q-item-section>
+
+              <q-item-section>
+                Help
+              </q-item-section>
+            </q-item>
+
+            <q-item to="/about" exact clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon name="face_2" />
+              </q-item-section>
+
+              <q-item-section>
+                About Us
+              </q-item-section>
+            </q-item>
+
+            <q-item to="/contacts" exact clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon name="contact_page" />
+              </q-item-section>
+
+              <q-item-section>
+                Contacts
+              </q-item-section>
+            </q-item>
+
+          </q-list>
+        </q-scroll-area>
+
+        <q-img class="absolute-top" src="../assets/background.jpg" style="height: 185px">
+          <div class="absolute-bottom bg-transparent">
+            <q-avatar size="80px" class="q-mb-sm">
+              <img src="../assets/avatar.jpg">
+            </q-avatar>
+            <div class="text-weight-bold">Tatiana Kontsaeva</div>
+            <div>@tatianakontsaeva</div>
+          </div>
+        </q-img>
+      </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <router-view v-slot="{ Component }">
+  <keep-alive>
+    <component :is="Component" />
+  </keep-alive>
+</router-view>
     </q-page-container>
   </q-layout>
 </template>
@@ -48,6 +95,7 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
+import { date } from 'quasar'
 
 const linksList = [
   {
@@ -103,14 +151,31 @@ export default defineComponent({
 
   setup () {
     const leftDrawerOpen = ref(false)
-
     return {
       essentialLinks: linksList,
       leftDrawerOpen,
       toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
-      }
+      },
     }
-  }
-})
+  },
+  computed: {
+    todaysDate() {
+      const timeStamp = Date.now();
+      return date.formatDate(timeStamp,"dddd DD MMM YYYY"
+      );
+    },
+  },
+
+});
 </script>
+<style lang="scss">
+  .header-image, .absolute-top {
+    height: 100%;
+    z-index: -1;
+    opacity: 1.1;
+  }
+  .q-item.q-router-link--active, .q-item--active {
+    color: #df9598;
+  }
+</style>
