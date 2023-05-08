@@ -40,7 +40,7 @@
 
             <q-item to="/help" exact clickable v-ripple>
               <q-item-section avatar>
-                <q-icon name="help" />
+                <q-icon name="contact_support" />
               </q-item-section>
 
               <q-item-section>
@@ -50,7 +50,7 @@
 
             <q-item to="/about" exact clickable v-ripple>
               <q-item-section avatar>
-                <q-icon name="face_2" />
+                <q-icon name="info_outline" />
               </q-item-section>
 
               <q-item-section>
@@ -73,7 +73,7 @@
 
         <q-img class="absolute-top" src="../assets/background.jpg" style="height: 185px">
           <div class="absolute-bottom bg-transparent">
-            <q-avatar size="80px" class="q-mb-sm">
+            <q-avatar size="90px" class="q-mb-sm">
               <img src="../assets/avatar.jpg">
             </q-avatar>
             <div class="text-weight-bold">Tatiana Kontsaeva</div>
@@ -170,6 +170,9 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
+  .q-drawer__content {
+    background: $light-purple;
+  }
   .header-image, .absolute-top {
     height: 100%;
     z-index: -1;

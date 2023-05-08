@@ -1,71 +1,70 @@
 <template>
   <q-page class="flex items-center justify-around">
     <div class="flex-break">
-      <h2>My ToDo List</h2>
+      <h4>Welcome to my ToDo List</h4>
       <img 
         alt="girl avatar"
-        src="~assets/girl.jpg"
+        src="~assets/girl.png"
         style="width: 400px; height: 300px"
       >
     </div>
-    <div class="q-pa-md" style="max-width: 600px">
-      <q-form
-        @submit="onSubmit"
-        class="q-gutter-md flex flex-center"
-      >
-        <q-input
-          filled
-          v-model="add"
-          label="Add your task"
-          lazy-rules
-          :rules="[ val => val && val.length > 0 || 'Please type something']"
-        />
-          <q-btn label="Add task" type="submit" color="dark"/>
-
-      </q-form>
-    </div>
+      <q-list separator>
+        <q-item 
+          @click="task.done = !task.done"
+          clickable
+          :class="{ 'done bg-pink-1': task.done }"
+          v-for="(task, index) in tasks" 
+          :key="task.title" 
+          v-ripple>
+          <q-item-section avatar>
+            <q-checkbox class="no-pointer-events"
+            v-model="task.done" val="teal" color="dark" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>{{task.title}}</q-item-label>
+          </q-item-section>
+          <q-item-section v-if="task.done" side> 
+            <q-btn @click.stop="deleteTask(index)" size="10px" round color="dark" icon="delete_forever" />
+          </q-item-section>
+        </q-item>
+      </q-list>
   </q-page>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import useQuasar from 'quasar/src/composables/use-quasar.js';
-import { ref } from 'vue'
 
 export default defineComponent({
   name: 'IndexPage',
-  setup () {
-    const $q = useQuasar()
-    const add = ref(null)
-    const age = ref(null)
-    const accept = ref(false)
-
+  data() {
     return {
-      add,
-      age,
-      accept,
-
-      onSubmit () {
-        if (accept.value !== true) {
-          $q.notify({
-            color: 'red-5',
-            textColor: 'white',
-            icon: 'warning',
-            message: 'You need to accept the license and terms first'
-          })
-        }
-        else {
-          $q.notify({
-            color: 'green-4',
-            textColor: 'white',
-            icon: 'cloud_done',
-            message: 'Submitted'
-          })
-        }
-      },
-      onReset () {
-        add.value = null
-      }
+      tasks:[
+        {
+          title: "Go to shop",
+          done: false,
+        },
+        {
+          title: "Go to the pool",
+          done: false,
+        },
+        {
+          title: "Sign up for dancing",
+          done: false,
+        },
+        {
+          title: "Do homework",
+          done: false,
+        },
+        {
+          title: "Go to museum or zoo",
+          done: false,
+        },
+      ],
+    };
+  },
+  methods: {
+    deleteTask(index) {
+      this.tasks.splice(index,1);
     }
   }
 })
@@ -73,5 +72,12 @@ export default defineComponent({
 <style lang="scss">
   body {
     color: $dark;
+    background:#c6afc10d;
+  }
+  .done {
+    .q-item__label {
+      text-decoration: line-through;
+      color: grey;
+    }
   }
 </style>
