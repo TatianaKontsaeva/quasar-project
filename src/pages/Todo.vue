@@ -8,6 +8,21 @@
         style="width: 400px; height: 300px"
       >
     </div>
+    <div class="q-pa-md" style="max-width: 600px">
+      <q-form
+        @keyup.enter="addTask"
+        class="q-gutter-md flex flex-center"
+      >
+        <q-input
+          filled
+          v-model="newTask"
+          label="Add your task"
+          lazy-rules
+          :rules="[ val => val && val.length > 0 || 'Please type something']"
+        />
+          <q-btn @click="addTask" label="Add task" type="submit" color="dark"/>
+      </q-form>
+   
       <q-list separator>
         <q-item 
           @click="task.done = !task.done"
@@ -21,13 +36,14 @@
             v-model="task.done" val="teal" color="dark" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>{{task.title}}</q-item-label>
+            <q-item-label>{{ task.title }}</q-item-label>
           </q-item-section>
           <q-item-section v-if="task.done" side> 
             <q-btn @click.stop="deleteTask(index)" size="10px" round color="dark" icon="delete_forever" />
           </q-item-section>
         </q-item>
       </q-list>
+    </div>
   </q-page>
 </template>
 
@@ -38,6 +54,7 @@ export default defineComponent({
   name: 'IndexPage',
   data() {
     return {
+      newTask: "",
       tasks:[
         {
           title: "Go to shop",
@@ -74,6 +91,13 @@ export default defineComponent({
         this.tasks.splice(index,1);
         this.$q.notify('Task deleted')
       })
+    },
+    addTask() {
+      this.tasks.push({
+        title: this.newTask,
+        done: false
+      })
+      this.newTask = ""
     }
   }
 })
