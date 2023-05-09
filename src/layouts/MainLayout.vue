@@ -15,6 +15,15 @@
         <div class="text-h3">My Todo List</div>
         <div class="text-subtitle">{{ todaysDate }}</div>
       </div>
+      <q-toggle
+        class="absolute-right q-px-md"
+        v-model="value"
+        :label="value"
+        @click="$q.dark.toggle()"
+        color="dark"
+        false-value="Light Theme"
+        true-value="Dark Theme"
+      /> 
       <q-img 
       class="header-image absolute-top"
       src="../assets/background.jpg"/>
@@ -96,6 +105,7 @@
 import { defineComponent, ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
 import { date } from 'quasar'
+import { useQuasar } from "quasar";
 
 const linksList = [
   {
@@ -151,14 +161,19 @@ export default defineComponent({
 
   setup () {
     const leftDrawerOpen = ref(false)
+    const $q = useQuasar();
+    $q.dark.set(true);
+    $q.dark.toggle();
     return {
       essentialLinks: linksList,
       leftDrawerOpen,
       toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
       },
+      value: ref("Light Theme"),
     }
   },
+ 
   computed: {
     todaysDate() {
       const timeStamp = Date.now();
