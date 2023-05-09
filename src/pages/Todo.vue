@@ -64,7 +64,16 @@ export default defineComponent({
   },
   methods: {
     deleteTask(index) {
-      this.tasks.splice(index,1);
+
+      this.$q.dialog({
+        title: 'Attention!',
+        message: 'Are you sure you want to delete task?',
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
+        this.tasks.splice(index,1);
+        this.$q.notify('Task deleted')
+      })
     }
   }
 })
