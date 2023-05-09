@@ -17,6 +17,8 @@
       </div>
       <q-toggle
         class="absolute-right q-px-md"
+        icon="dark_mode"
+        size="lg"
         v-model="value"
         :label="value"
         @click="$q.dark.toggle()"
@@ -25,7 +27,7 @@
         true-value="Dark Theme"
       /> 
       <q-img 
-      class="header-image absolute-top"
+      class="header-image absolute-top bg-dimmed"
       src="../assets/background.jpg"/>
     </q-header>
     <q-drawer
@@ -151,29 +153,25 @@ const linksList = [
     link: 'https://awesome.quasar.dev'
   }
 ]
-
 export default defineComponent({
   name: 'MainLayout',
-
   components: {
     EssentialLink
   },
-
   setup () {
     const leftDrawerOpen = ref(false)
     const $q = useQuasar();
     $q.dark.set(true);
     $q.dark.toggle();
-    return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      },
-      value: ref("Light Theme"),
-    }
+      return {
+        essentialLinks: linksList,
+        leftDrawerOpen,
+        toggleLeftDrawer () {
+          leftDrawerOpen.value = !leftDrawerOpen.value
+        },
+        value: ref("Light Theme"),
+      }
   },
- 
   computed: {
     todaysDate() {
       const timeStamp = Date.now();

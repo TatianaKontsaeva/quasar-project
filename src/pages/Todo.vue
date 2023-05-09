@@ -43,6 +43,12 @@
           </q-item-section>
         </q-item>
       </q-list>
+      <div 
+        v-if="!tasks.length"
+        class="no-tasks text-center">
+        <q-icon name="task" size="xl"/>
+        <div class="text-h4">No Tasks!</div>
+      </div>
     </div>
   </q-page>
 </template>
@@ -56,26 +62,26 @@ export default defineComponent({
     return {
       newTask: "",
       tasks:[
-        {
-          title: "Go to shop",
-          done: false,
-        },
-        {
-          title: "Go to the pool",
-          done: false,
-        },
-        {
-          title: "Sign up for dancing",
-          done: false,
-        },
-        {
-          title: "Do homework",
-          done: false,
-        },
-        {
-          title: "Go to museum or zoo",
-          done: false,
-        },
+        // {
+        //   title: "Go to shop",
+        //   done: false,
+        // },
+        // {
+        //   title: "Go to the pool",
+        //   done: false,
+        // },
+        // {
+        //   title: "Sign up for dancing",
+        //   done: false,
+        // },
+        // {
+        //   title: "Do homework",
+        //   done: false,
+        // },
+        // {
+        //   title: "Go to museum or zoo",
+        //   done: false,
+        // },
       ],
     };
   },
