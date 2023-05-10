@@ -20,7 +20,7 @@
           lazy-rules
           :rules="[ val => val && val.length > 0 || 'Please type something']"
         />
-          <q-btn @click="addTask" label="Add task" type="submit" color="dark"/>
+          <q-btn @click="addTask" label="Add task" type="submit" color="pink-2" class="add_btn"/>
       </q-form>
    
       <q-list separator>
@@ -87,7 +87,6 @@ export default defineComponent({
   },
   methods: {
     deleteTask(index) {
-
       this.$q.dialog({
         title: 'Attention!',
         message: 'Are you sure you want to delete task?',
@@ -95,15 +94,24 @@ export default defineComponent({
         persistent: true
       }).onOk(() => {
         this.tasks.splice(index,1);
-        this.$q.notify('Task deleted')
+        this.$q.notify({
+          type: "negative", 
+          message: 'Task deleted'
+        })
       })
     },
     addTask() {
-      this.tasks.push({
-        title: this.newTask,
-        done: false
-      })
-      this.newTask = ""
+      if (this.newTask) {
+        this.tasks.push({
+          title: this.newTask,
+          done: false
+        });
+        this.newTask = "";
+        this.$q.notify({
+          type: "positive", 
+          message: 'Task added'
+        });
+      }
     }
   }
 })
@@ -119,4 +127,14 @@ export default defineComponent({
       color: grey;
     }
   }
+  .q-dialog__inner--minimized {
+    background: #96898d;
+  }
+ .q-dialog-plugin {
+       background-color:#ffffff4d;
+       color: $dark
+ }
+ .q-btn__content {
+  color: $dark;
+ }
 </style>
