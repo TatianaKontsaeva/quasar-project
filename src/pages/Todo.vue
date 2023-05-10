@@ -20,7 +20,7 @@
           lazy-rules
           :rules="[ val => val && val.length > 0 || 'Please type something']"
         />
-          <q-btn @click="addTask" label="Add task" type="submit" color="pink-2" class="add_btn"/>
+          <q-btn @click="addTask" label="Add task" type="submit" color="dark" class="add_btn"/>
       </q-form>
    
       <q-list separator>
@@ -131,10 +131,8 @@ export default defineComponent({
     background: #96898d;
   }
  .q-dialog-plugin {
-       background-color:#ffffff4d;
-       color: $dark
+       background-color: $dark;
+       color:white;
  }
- .q-btn__content {
-  color: $dark;
- }
+ 
 </style>
