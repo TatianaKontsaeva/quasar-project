@@ -155,8 +155,8 @@ const toggleDone = (id) => {
 </script>
 <style lang="scss">
   body {
-      color: $dark;
-      background:#c6afc10d;
+    color: $dark;
+    background:#c6afc10d;
   }
   .done {
     .q-item__label {
